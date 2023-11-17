@@ -1,5 +1,10 @@
 import React from 'react'
+import { MenuAppBar } from './MenuAppBar'
 
 export const Header = () => {
-  return <div>Header</div>
+  return (
+    <React.Fragment>
+      <MenuAppBar />
+    </React.Fragment>
+  )
 }
