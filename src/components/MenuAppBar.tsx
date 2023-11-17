@@ -7,9 +7,9 @@ import IconButton from '@mui/material/IconButton'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import { Link } from 'react-router-dom'
-import { AccountCircle } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { isLoggedInSelector } from '../state-management/slices/appSlice'
+import { MenuHeader } from './MenuHeader'
 
 export function MenuAppBar () {
   const auth = useSelector(isLoggedInSelector)
@@ -25,8 +25,8 @@ export function MenuAppBar () {
   }
 
   return (
-    <Box sx={{ flexGrow: 1, height: 50 }}>
-      <AppBar position='static'>
+    <Box sx={{ flexGrow: 1, height: 100, background: '#254A75' }}>
+      <AppBar position='static' sx={{ background: 'transparent' }}>
         <Toolbar>
           {auth && (
             <div>
@@ -38,10 +38,10 @@ export function MenuAppBar () {
                 onClick={handleMenu}
                 color='inherit'
               >
-                <AccountCircle />
+                <MenuHeader />
               </IconButton>
               <Menu
-                sx={{ mt: '50px' }}
+                sx={{ mt: '80px' }}
                 id='menu-appbar'
                 anchorEl={anchorEl}
                 anchorOrigin={{
