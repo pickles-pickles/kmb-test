@@ -3,12 +3,13 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { newsListSelector } from '../state-management/slices/newsSlice'
 import MediaCard from './MediaCard'
+import { newsType } from '../types/types'
 
 export const CardsContainer = () => {
   const newsList = useSelector(newsListSelector)
   return (
     <Grid container spacing={2} justifyContent='center' alignItems='center'>
-      {newsList.map(n => (
+      {newsList.map((n: newsType) => (
         <Grid key={n.title} item sm={12} lg={4}>
           <MediaCard n={n} />
         </Grid>
