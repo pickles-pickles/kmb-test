@@ -7,9 +7,9 @@ import MediaCard from './MediaCard'
 export const CardsContainer = () => {
   const newsList = useSelector(newsListSelector)
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent='center' alignItems='center'>
       {newsList.map(n => (
-        <Grid sm={12} lg={4}>
+        <Grid item sm={12} lg={4}>
           <MediaCard n={n} />
         </Grid>
       ))}

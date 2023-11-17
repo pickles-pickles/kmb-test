@@ -34,14 +34,7 @@ export const MainPage = () => {
         </>
       )}
       {success && (
-        <Box
-          component='div'
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
+        <Box component='div'>
           <CardsContainer />
         </Box>
       )}
