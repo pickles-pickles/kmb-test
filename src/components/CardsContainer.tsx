@@ -9,7 +9,7 @@ export const CardsContainer = () => {
   return (
     <Grid container spacing={2} justifyContent='center' alignItems='center'>
       {newsList.map(n => (
-        <Grid item sm={12} lg={4}>
+        <Grid key={n.title} item sm={12} lg={4}>
           <MediaCard n={n} />
         </Grid>
       ))}

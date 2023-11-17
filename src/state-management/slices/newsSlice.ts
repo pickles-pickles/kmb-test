@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../store'
 import { newsType } from '../../types/types'
-import { getAllNews } from '../../services/newsService'
+import { getAllNews, getFilterdNews } from '../../services/newsService'
 
 // Define a type for the slice state
 interface newsState {
@@ -27,6 +27,16 @@ export const fetchAllNews = createAsyncThunk('news/fetchAllNews', async () => {
   return data
 })
 
+export const fetchFilterdNews = createAsyncThunk(
+  'news/fetchFilterdNews',
+  async (params: any) => {
+    const response = await getFilterdNews(params.page, params.pageSize)
+    const data = await response.data.articles
+    console.log(data)
+    return data
+  }
+)
+
 export const newsSlice = createSlice({
   name: 'news',
   // `createSlice` will infer the state type from the `initialState` argument
@@ -49,6 +59,33 @@ export const newsSlice = createSlice({
       })
 
       .addCase(fetchAllNews.fulfilled, (state, action) => {
+        console.log('action payload is', action.payload)
+        state.newsList = action.payload.map((n: newsType) => ({
+          source: n.source ? n.source : '-',
+          author: n.author ? n.author : '-',
+          title: n.title || '-',
+
+          description: n.description || '-',
+          url: n.url || '-',
+          urlToImage: n.urlToImage || '-',
+          publishedAt: n.publishedAt || '-',
+          content: n.content || '-'
+        }))
+
+        state.isLoading = false
+        state.success = true
+      })
+      .addCase(fetchFilterdNews.pending, state => {
+        state.isLoading = true
+        state.success = false
+      })
+      .addCase(fetchFilterdNews.rejected, (state, action) => {
+        state.isLoading = false
+        state.newsList = []
+        state.error = action.error
+      })
+
+      .addCase(fetchFilterdNews.fulfilled, (state, action) => {
         console.log('action payload is', action.payload)
         state.newsList = action.payload.map((n: newsType) => ({
           source: n.source ? n.source : '-',
